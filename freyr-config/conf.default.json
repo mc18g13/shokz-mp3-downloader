@@ -1,0 +1,61 @@
+{
+  "server": {
+    "hostname": "127.0.0.1",
+    "port": 36346,
+    "useHttps": false
+  },
+  "concurrency": {
+    "queries": 1,
+    "tracks": 1,
+    "trackStage": 6,
+    "downloader": 4,
+    "encoder": 6,
+    "embedder": 10
+  },
+  "opts": {
+    "netCheck": true,
+    "attemptAuth": true,
+    "autoOpenBrowser": true
+  },
+  "filters": [],
+  "dirs": {
+    "output": "data",
+    "check": [],
+    "cache": {
+      "path": "<cache>",
+      "keep": true
+    }
+  },
+  "playlist": {
+    "always": false,
+    "append": true,
+    "escape": true,
+    "forceAppend": false,
+    "dir": "",
+    "namespace": ""
+  },
+  "image": {
+    "width": 640,
+    "height": 640
+  },
+  "downloader": {
+    "memCache": true,
+    "cacheSize": 209715200,
+    "sources": [
+      "yt_music",
+      "youtube"
+    ]
+  },
+  "services": {
+    "spotify": {
+      "clientId": "<client_id>",
+      "clientSecret": "<secret>"
+    },
+    "apple_music": {
+      "storefront": "us"
+    },
+    "deezer": {
+      "retries": 2
+    }
+  }
+}

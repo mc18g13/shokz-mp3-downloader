@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "freyr": "git+https://github.com/miraclx/freyr-js.git",
+    "youtube-dl-exec": "^3.0.24"
+  }
+}
