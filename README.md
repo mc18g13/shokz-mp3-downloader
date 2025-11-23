@@ -89,3 +89,11 @@ invoke copy-all-mp3 --dest-dir=/path/to/your/device
   ```
   If incorrect, recreate the venv with `uv` using Python 3.12.
 
+
+- **no audio-formats available**
+  ```
+  yarn remove freyr
+  yarn remove youtube-dl-exec
+  yarn remove yt-search
+  yarn add freyr
+  ```
