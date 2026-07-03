@@ -1,0 +1,8 @@
+[project]
+name = "shokz-mp3-downloader"
+version = "0.1.0"
+description = "Download Spotify playlists and convert them to MP3"
+requires-python = ">=3.12"
+dependencies = [
+    "invoke>=2.2",
+]

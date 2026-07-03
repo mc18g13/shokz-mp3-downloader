@@ -4,6 +4,7 @@ from invoke import task
 
 @task
 def get_playlist(c, playlist_id="https://open.spotify.com/playlist/5ABMzUESx7K7EyowE5kFCl?si=8849debdda414011", config_path="./freyr-config/conf.json"):
+    os.makedirs("data", exist_ok=True)
     c.run(f"yarn freyr get {playlist_id} --config {config_path}")
 
 @task

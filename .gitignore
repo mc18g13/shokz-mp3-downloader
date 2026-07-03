@@ -1,3 +1,7 @@
 conf.json
 node_modules
 data
+.venv
+venv
+.yarn
+__pycache__

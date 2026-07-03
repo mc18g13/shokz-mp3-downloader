@@ -2,36 +2,52 @@
 
 A small utility to download Spotify playlists and convert them into MP3 files (e.g. for use with Shokz headphones).
 
+## Get Started
+
+Full run, from scratch:
+
+```bash
+# one-time setup
+sudo apt install ffmpeg atomicparsley
+uv sync
+yarn install
+cp freyr-config/conf.default.json freyr-config/conf.json
+# edit freyr-config/conf.json — add your Spotify clientId/clientSecret
+# (see "Spotify API Setup" below)
+
+# download a playlist
+uv run invoke get-playlist --playlist-id=https://open.spotify.com/playlist/<id>
+
+# convert m4a → mp3
+uv run invoke convert-all-m4a --directory=./data
+
+# copy to your device (adjust mount path)
+uv run invoke copy-all-mp3 --dest-dir=/path/to/your/device
+```
+
 ## Requirements
 
 - Python 3.12+ (use [`uv`](https://docs.astral.sh/uv/) to manage)  
 - [ffmpeg](https://ffmpeg.org/)  
+- [AtomicParsley](https://github.com/wez/AtomicParsley) (metadata embedding, used by freyr)  
 - [Node.js](https://nodejs.org/) (with `yarn`)  
 - [freyr-js](https://github.com/miraclx/freyr-js)  
 - [yt-dlp](https://github.com/yt-dlp/yt-dlp) (YouTube downloader backend used by freyr)
 
-## Python Setup with `uv`
+## Setup
 
-[`uv`](https://docs.astral.sh/uv/) makes Python version management simple.
-
-### Install `uv`
+### Install `uv` (if missing)
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### Create a virtual environment with Python 3.12
-```bash
-uv venv venv --python 3.12
-source venv/bin/activate
-```
-
-(Use `uv python list` to see available versions, `uv python install 3.12` to install if missing.)
-
 ### Install dependencies
 ```bash
-pip install invoke
+uv sync
 yarn install
 ```
+
+`uv sync` creates `.venv` and installs Python dependencies automatically. Run tasks with `uv run invoke ...` — no manual venv activation needed.
 
 ## Configuration
 
@@ -53,9 +69,11 @@ Freyr requires a Spotify Developer API client to fetch playlists.
 
    ```json
    {
-     "spotify": {
-       "clientId": "YOUR_CLIENT_ID",
-       "clientSecret": "YOUR_CLIENT_SECRET"
+     "services": {
+       "spotify": {
+         "clientId": "YOUR_CLIENT_ID",
+         "clientSecret": "YOUR_CLIENT_SECRET"
+       }
      }
    }
    ```
@@ -66,29 +84,20 @@ Freyr requires a Spotify Developer API client to fetch playlists.
 
 ### Download a playlist
 ```bash
-invoke get-playlist --playlist-id=https://open.spotify.com/playlist/<id>
+uv run invoke get-playlist --playlist-id=https://open.spotify.com/playlist/<id>
 ```
 
 ### Convert `.m4a` to `.mp3`
 ```bash
-invoke convert-all-m4a ./data
+uv run invoke convert-all-m4a ./data
 ```
 
 ### Copy all MP3s to your device
 ```bash
-invoke copy-all-mp3 --dest-dir=/path/to/your/device
+uv run invoke copy-all-mp3 --dest-dir=/path/to/your/device
 ```
 
 ## Troubleshooting
-
-- **yt-dlp ImportError: unsupported Python**  
-  Ensure your virtual environment is Python **3.9 or above** (this project expects 3.12).  
-  Check with:  
-  ```bash
-  python -V
-  ```
-  If incorrect, recreate the venv with `uv` using Python 3.12.
-
 
 - **no audio-formats available**
   ```
